@@ -1,2 +1,2 @@
-# Other-Tutorials
-Repository used to store coding tutorials found online.
+# Other_Tutorials
+Repository used to store code from tutorials found online.
