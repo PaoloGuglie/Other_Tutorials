@@ -1,0 +1,3 @@
+Link to video: https://youtu.be/dQlw1Cdd3pw?si=jyJwE4MxLlqjNM3g
+
+Tutorial for scripting in Python, from command-line arguments to SYS modules.
