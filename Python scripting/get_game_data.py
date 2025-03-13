@@ -12,6 +12,8 @@ import sys  # to gain access to command-line arguments
 
 
 GAME_DIR_PATTER = "game"  # look for the string "game" in every directory
+GAME_CODE_EXTENSION = ".go"
+GAME_COMPILE_COMMAND = ["go", "build"]
 
 
 def find_all_game_paths(source):
@@ -61,6 +63,35 @@ def make_json_metadata_file(path, game_dirs):
         json.dump(data, file)
 
 
+def compile_game_code(path):
+    # find filename
+    code_file_name = None
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file.endswith(GAME_CODE_EXTENSION):
+                code_file_name = file
+                break
+
+        break
+
+    if code_file_name is None:
+        return
+
+    command = GAME_COMPILE_COMMAND + [code_file_name]
+    run_command(command, path)
+
+
+def run_command(command, path):
+    cwd = os.getcwd()
+    os.chdir(path)
+
+    result = run(command, stdout=PIPE, stdin=PIPE, universal_newlines=True)
+    print(f"Compile result: {result}")
+
+    # return to current working directory
+    os.chdir(cwd)
+
+
 def main(source, target):
     # current working directory
     cwd = os.getcwd()
@@ -69,14 +100,15 @@ def main(source, target):
     target_path = os.path.join(cwd, target)
     # get game paths and create new ones
     game_paths = find_all_game_paths(source_path)
-    new_game_dirs = get_name_from_paths(game_paths, "game")
-    print(new_game_dirs)
+    new_game_dirs = get_name_from_paths(game_paths, "_game")
     # create target path
     create_dir(target_path)
     # copy
     for src, dest in zip(game_paths, new_game_dirs):
         dest_path = os.path.join(target_path, dest)
         copy_and_overwrite(src, dest_path)
+        # compile
+        compile_game_code(dest_path)
     # create metadata file
     json_path = os.path.join(target_path, "metadata.json")
     make_json_metadata_file(json_path, new_game_dirs)
