@@ -70,7 +70,7 @@ def trading_job():
 
     # define stop loss and take profit ratio
     SLTP_ratio = 2.
-    previous_candle_result = abs(dataframe_stream['Open'].iloc[-2] - dataframe_stream['Close'].iloc[-2])
+    previous_candle_result = abs(dataframe_stream['High'].iloc[-2] - dataframe_stream['Low'].iloc[-2])
     # stop losses
     SL_Buy = float(str(candle.bid.o)) - previous_candle_result
     SL_Sell = float(str(candle.bid.o)) + previous_candle_result
@@ -85,6 +85,7 @@ def trading_job():
             units=-1000,
             takeProfitOnFill=TakeProfitDetails(price=TP_Sell).data,
             stopLossOnFill=StopLossDetails(price=SL_Sell).data)
+
         r = orders.OrderCreate(accountID, data=market_order.data)
         rv = client.request(r)
         print(rv)
@@ -95,8 +96,22 @@ def trading_job():
             instrument="EUR_USD",
             units=1000,
             takeProfitOnFill=TakeProfitDetails(price=TP_Buy).data,
-            stopLossOnFill=StopLossDetails(price=SL_Buy).data)
+            stopLossOnFill=StopLossDetails(price=SL_Buy).data
+        )
         r = orders.OrderCreate(accountID, data=market_order.data)
         rv = client.request(r)
         print(rv)
 
+
+# Scheduler
+scheduler = BlockingScheduler()
+scheduler.add_job(
+    trading_job,
+    'cron',
+    day_of_week='mon-fri',
+    hour='00-23',
+    minute='1, 16, 31, 46',
+    start_date='2025-03-01 12:00:00',
+    timezone='America/Chicago'
+)
+scheduler.start()
