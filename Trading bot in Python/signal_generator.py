@@ -36,4 +36,3 @@ for i in range(1, len(dataframe)):
 
 # Add a new "signal" column in my testing dataframe
 dataframe["signals"] = signals
-
