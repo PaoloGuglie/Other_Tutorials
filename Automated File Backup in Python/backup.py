@@ -7,19 +7,31 @@ import time
 from data import *
 
 
-def create_destination_dir(destination_dir: str) -> None:
-    """ Create the directory, ignore errors if already exists """
+def create_todays_destination_dir(destination_dir: str) -> str:
+    """ Create today's directory inside the destination directory """
+
+    today = datetime.date.today()
+
+    today_dir = os.path.join(destination_dir, str(today))
+
+    return today_dir
+
+
+def copy_folder_to_directory(source_dir: str, destination_dir: str) -> None:
 
     try:
-        os.mkdir(destination_dir)
+        shutil.copytree(source_dir, destination_dir)
+        print(f"Folder copied to {destination_dir}!")
 
     except FileExistsError:
-        pass
+        print(f"Folder already exists in {destination_dir}!")
 
 
 def main() -> None:
 
-    create_destination_dir(DESTINATION_DIRECTORY)
+    today_dir = create_todays_destination_dir(DESTINATION_DIRECTORY)
+
+    copy_folder_to_directory(SOURCE_DIRECTORY, today_dir)
 
 
 if __name__ == '__main__':
