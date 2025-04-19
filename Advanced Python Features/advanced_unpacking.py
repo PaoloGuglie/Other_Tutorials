@@ -77,6 +77,5 @@ def main() -> None:
     print(f"After swap - x: {x}, y: {y}")
 
 
-
 if __name__ == '__main__':
     main()
