@@ -1,14 +1,14 @@
 import os
 import shutil
 import datetime
-import scheduler
+import schedule
 import time
 
 from data import *
 
 
-def create_todays_destination_dir(destination_dir: str) -> str:
-    """ Create today's directory inside the destination directory """
+def create_todays_destination_dir_name(destination_dir: str) -> str:
+    """ Create today's directory name inside the destination directory """
 
     today = datetime.date.today()
 
@@ -29,10 +29,16 @@ def copy_folder_to_directory(source_dir: str, destination_dir: str) -> None:
 
 def main() -> None:
 
-    today_dir = create_todays_destination_dir(DESTINATION_DIRECTORY)
+    today_dir = create_todays_destination_dir_name(DESTINATION_DIRECTORY)
 
     copy_folder_to_directory(SOURCE_DIRECTORY, today_dir)
 
 
 if __name__ == '__main__':
-    main()
+
+    schedule.every().day.at(RUN_TIME).do(main)  # it does not execute without schedule.run_pending()
+
+    while True:
+        # Necessary for the schedule to run
+        schedule.run_pending()  # looks for any scheduled task not already run and runs it.
+        time.sleep(60)
