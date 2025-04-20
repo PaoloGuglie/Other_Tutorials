@@ -5,7 +5,7 @@ def main() -> None:
 
     print(f"a: {a}\n"
           f"b: {b}\n"
-          f"c:{c}")
+          f"c: {c}")
 
     print("\n--------------------------\n")
 
@@ -13,7 +13,7 @@ def main() -> None:
 
     print(f"a: {a}\n"
           f"b: {b}\n"
-          f"c:{c}")
+          f"c: {c}")
 
     print("\n--------------------------\n")
 
