@@ -19,7 +19,7 @@ def count_up_to(max_value: int):
 
     while current <= max_value:
         yield current  # yield the current value and pause execution. Wait at this
-        # line until the next value is requested.
+                       # line until the next value is requested.
         current += 1
 
 
