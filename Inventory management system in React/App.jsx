@@ -19,9 +19,41 @@ function App()
   {
     const filteredData = [];
 
-    for (const i of data)
+    // Check if there are filters in place:
+    if (!filters.name && !filters.price && !filters.type && !filters.brand)
+    {
+      return data;
+    }
 
-    return filterData;
+    for (const item of data)
+    {
+      // Skip the items that do not meet the criteria:
+
+      if (filters.name !== '' && item.name !== filters.name)
+      {
+        continue;  // skip the item and don't add it to the filtered data.
+      }
+
+      if (filters.price !== 0 && item.price > filters.price)
+      {
+        continue;  // I am above max price, so I skip.
+      }
+
+      if (filters.type !== '' && item.type !== filters.type)
+      {
+        continue;  // same as first
+      }
+
+      if (filters.brand !== '' && item.brand !== filters.brand)
+      {
+        continue;  // same as first
+      }
+
+      // If all checks are passed:
+      filteredData.push(item);
+    }
+
+    return filteredData;
   }
 
   const addItem = item =>
@@ -43,7 +75,7 @@ function App()
   return (
   <div className="container">
     <div className="row mt-3">
-      <ItemsDisplay items={filteredData(data['items'])} />
+      <ItemsDisplay items={filterData(data['items'])} />
     </div>
     <div className="row mt-3">
       <SearchBar updateSearchParams={updateFilters} />
