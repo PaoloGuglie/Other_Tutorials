@@ -61,15 +61,23 @@ function App()
     // Restore the state into a variable:
     let items = data['items'];
 
-    // Create the id field based on the length of the items array
-    // (first item has arrayLenght = 0, second = 1...):
-    item.id = items.length + 1;
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item)
+    };
 
-    // Push the data into the variable:
-    items.push(item);
+    // The difference betweeen item and data is that, after entering the database, the
+    // item receives an ID by it, so I got it back from the database and added it to
+    // my items list.
 
-    // Update the state:
-    setData({items: items});
+    fetch("http://localhost:3000/items", requestOptions)
+    .then(response => response.json)
+    .then(data => {
+      items.push(data); setData({items: items})
+    });
   };
 
   return (
