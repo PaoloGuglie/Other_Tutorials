@@ -41,15 +41,15 @@ function App()
 
       if (filters.type !== '' && item.type !== filters.type)
       {
-        continue;  // same as first
+        continue;  // same as the first if statement.
       }
 
       if (filters.brand !== '' && item.brand !== filters.brand)
       {
-        continue;  // same as first
+        continue;  // same as the first statement.
       }
 
-      // If all checks are passed:
+      // If all checks are passed (otherwise this statement is skipped):
       filteredData.push(item);
     }
 
