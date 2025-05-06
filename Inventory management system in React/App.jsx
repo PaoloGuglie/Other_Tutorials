@@ -3,7 +3,7 @@ import AddItem from "./AddItem.jsx";
 import ItemsDisplay from "./ItemsDisplay.jsx";
 import Test from "./Class.jsx";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App()
 {
@@ -12,6 +12,30 @@ function App()
   const [data, setData] = useState({items: []});
 
   const [showTest, setShowTest] = useState(true);
+
+  // Works with the App() component.
+  // I can decide when this function runs using a dependency list.
+  // If I pass an empty list, the useEffect() function will run only when
+  // the component mounts.
+  // If the list has items, the useEffect() function will also run when the
+  // item changes its value.
+  useEffect(() => {
+    console.log("Use effect!");
+
+    // "return" will run a function when the component unmounts or when an item
+    // changes value. Can be used to clean up the code.
+    return() =>
+    {
+      console.log("Cleanup!");
+    }
+
+    // I can run useEffect when I subscribe to a channel. Then, if I decide to
+    // unsubscribe, the cleanup "return" function can send the data to the server
+    // to unsubscribe me.
+    // Then, I can subscribe again. I clean up the previus effect.
+  }, []);
+
+  useEffect(() => { console.log("Second useEffect() !") });
 
   const updateFilters = searchParams =>
   {
