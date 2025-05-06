@@ -1,6 +1,7 @@
 import SearchBar from "./SearchBar.jsx";
 import AddItem from "./AddItem.jsx";
 import ItemsDisplay from "./ItemsDisplay.jsx";
+import Test from "./Class.jsx";
 
 import { useState } from "react";
 
@@ -9,6 +10,8 @@ function App()
   const [filters, setFilters] = useState({});
 
   const [data, setData] = useState({items: []});
+
+  const [showTest, setShowTest] = useState(true);
 
   const updateFilters = searchParams =>
   {
@@ -41,15 +44,15 @@ function App()
 
       if (filters.type !== '' && item.type !== filters.type)
       {
-        continue;  // same as the first if statement.
+        continue;  // same as first
       }
 
       if (filters.brand !== '' && item.brand !== filters.brand)
       {
-        continue;  // same as the first statement.
+        continue;  // same as first
       }
 
-      // If all checks are passed (otherwise this statement is skipped):
+      // If all checks are passed:
       filteredData.push(item);
     }
 
@@ -91,6 +94,7 @@ function App()
     <div className="row mt-3">
       <AddItem addItem={addItem} />
     </div>
+    {showTest ? <Test setShowTest={setShowTest}/> : null}
   </div>);
 }
 
