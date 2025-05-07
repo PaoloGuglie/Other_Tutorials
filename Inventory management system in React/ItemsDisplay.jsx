@@ -12,13 +12,13 @@ function ItemsDisplay(props)
               <th scope="col">Id</th>
               <th scope="col">Name</th>
               <th scope="col">Price</th>
-              <th scope="col">type</th>
+              <th scope="col">Type</th>
               <th scope="col">Brand</th>
             </tr>
           </thead>
           <tbody>
-            {props.items.map((item) => (
-              <tr>
+            {Object.values(props.items).map((item) => (
+              <tr key={item.id}>
                 <th scope="row">{item.id}</th>
                 <td>{item.name}</td>
                 <td>{item.price}</td>

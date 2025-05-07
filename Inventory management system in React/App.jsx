@@ -37,6 +37,13 @@ function App()
 
   useEffect(() => { console.log("Second useEffect() !") });
 
+  // Load data from database:
+  useEffect(() => {
+    fetch("http://localhost:3000/items")
+    .then(response => response.json())
+    .then(data => setData({ items: data }));
+  }, []);
+
   const updateFilters = searchParams =>
   {
     setFilters(searchParams);
@@ -101,10 +108,12 @@ function App()
     // my items list.
 
     fetch("http://localhost:3000/items", requestOptions)
-    .then(response => response.json)
+    .then(response => response.json())
     .then(data => {
-      items.push(data); setData({items: items})
+      const updatedItems = [...items, data];
+      setData({ items: updatedItems });
     });
+    
   };
 
   return (
