@@ -1,6 +1,6 @@
 def main() -> None:
 
-    # The Asterisk operator allows me to collect multiple elements:
+    # The asterisk (*) operator allows me to collect multiple elements:
     a, b, *c = [1, 2, 3, 4, 5]
 
     print(f"a: {a}\n"
@@ -18,7 +18,7 @@ def main() -> None:
     print("\n--------------------------\n")
 
     # To ignore a value, use the Anonymous variable:
-    # (the underscore is a convention, still assigned)
+    # (the underscore is a convention, it is still assigned)
     d, _, e = [1, 2, 3]
 
     print(f"d: {d}\n"
@@ -46,7 +46,7 @@ def main() -> None:
 
     print("\n--------------------------\n")
 
-    # I can combine lists with the Asterisk operator:
+    # I can combine lists with the asterisk operator:
     list1 = [1, 2, 3]
     list2 = [4, 5, 6]
     list3 = [33, 44, 55]
