@@ -32,11 +32,13 @@ impl BankAccount
 {
     fn withdraw(&mut self, amount: f64)
     {
+        // BankAccount is mutable
         println!("Withdrawing {:.2} from account owned by {}",
         amount, self.owner);
         self.balance -= amount;
     }
 
+    // BankAccount is immutable
     fn check_balance(&self)
     {
         println!("Account owned by {} has a balance of {:.2}",
